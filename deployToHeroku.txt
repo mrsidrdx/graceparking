@@ -1,0 +1,14 @@
+https://www.youtube.com/watch?v=3QmoT51QXPY (heroku deploy)
+
+https://docs.djangoproject.com/en/3.1/topics/auth/default/ (django auth doc)
+
+heroku create parkingcontrol
+git remote add parkingcontrol https://git.heroku.com/parkingcontrol.git
+heroku addons:create heroku-postgresql:hobby-dev --remote parkingcontrol
+
+git add .
+git commit -m "deploying to heroku"
+git push parkingcontrol master
+heroku run python manage.py migrate --remote parkingcontrol
+
+DISABLE_COLLECTSTATIC = 1
