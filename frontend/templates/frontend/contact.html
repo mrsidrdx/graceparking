@@ -62,13 +62,14 @@
 		<div class="row justify-content-center mt-5">
 			<div class="col-lg-10 py-4">
 
-				<form id="contactForm" class="contact-form" action="php/contact-form.php" method="POST">
+				<form id="contactForm" class="contact-form" action="{% url 'send_message' %}" method="POST" enctype="multipart/form-data">
+					{% csrf_token %}
 					<div class="contact-form-success alert alert-success d-none mt-4" id="contactSuccess">
 						<strong>Success!</strong> Your message has been sent to us.
 					</div>
 
-					<div class="contact-form-error alert alert-danger d-none mt-4" id="contactError">
-						<strong>Error!</strong> There was an error sending your message.
+					<div class="contact-form-error alert alert-success d-none mt-4" id="contactError">
+						<strong>Success!</strong> Your message has been sent to us.
 						<span class="mail-error-message text-1 d-block" id="mailErrorMessage"></span>
 					</div>
 					<div class="form-row">

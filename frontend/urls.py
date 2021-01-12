@@ -7,4 +7,5 @@ urlpatterns = [
     path('services/', services,name='services'),
     path('work/', work,name='work'),
     path('contact/', contact,name='contact'),
+    path('contact/send_message/', send_message,name='send_message'),
 ]

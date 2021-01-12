@@ -21,6 +21,16 @@ Theme Version: 	2.2.0
 
 	$('#salesSelectorWrapper').addClass('ready');
 
+	$('#salesSelector1').themePluginMultiSelect().on('change', function() {
+		var rel = $(this).val();
+		$('#salesSelectorItems1 .chart').removeClass('chart-active').addClass('chart-hidden');
+		$('#salesSelectorItems1 .chart[data-sales-rel="' + rel + '"]').addClass('chart-active').removeClass('chart-hidden');
+	});
+
+	$('#salesSelector1').trigger('change');
+
+	$('#salesSelectorWrapper1').addClass('ready');
+
 	/*
 	Flot: Sales 1
 	*/

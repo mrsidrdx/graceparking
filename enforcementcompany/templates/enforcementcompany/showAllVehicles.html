@@ -1,0 +1,144 @@
+{% extends 'enforcementcompany/base.html' %}
+{% load static %}
+{% block title %}
+<title>Towed Vehicles</title>
+{% endblock %}
+{% block page_content %}
+<section role="main" class="content-body">
+	<header class="page-header">
+		<h2>Towed Vehicles</h2>
+
+		<div class="right-wrapper text-right">
+			<ol class="breadcrumbs">
+				<li>
+					<a href="{% url 'law_enforcement_dashboard' %}">
+						<i class="fas fa-home"></i>
+					</a>
+				</li>
+				<li><span>Vehicles</span></li>
+			</ol>
+			<a class="sidebar-right-toggle"><i class="fas fa-chevron-left"></i></a>
+		</div>
+	</header>
+
+	<!-- start: page -->
+	<div class="row">
+		<div class="col">
+			<a role="button" href="{% url 'enf_model_vehicle' enforcement_id=enforcementId %}" class="mb-1 mt-1 mr-1 btn btn-lg btn-primary">Add Vehicle</a>
+			<section class="card">
+				<header class="card-header">
+					<div class="card-actions">
+						<a href="#" class="card-action card-action-toggle" data-card-toggle></a>
+						<a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
+					</div>
+
+					<h2 class="card-title">Towed Vehicles</h2>
+				</header>
+				<div class="card-body">
+					<table class="table table-bordered table-striped mb-0" id="datatable-tabletools">
+						<thead>
+							<tr>
+								<th>S. No.</th>
+								<th>Owner Name</th>
+								<th>Owner Phone</th>
+								<th>Vehicle Name</th>
+								<th>Towed Date</th>
+								<th>Fine Amount</th>
+								<th>Fine Paid</th>
+								<th>Vehicle Returned</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+						 {% for x in vehicle_objects %}
+							<tr>
+								<td class="center">{{forloop.counter}}</td>
+								<td>{{x.owner_name}}</td>
+								<td>{{x.owner_phone_no}}</td>
+								<td>{{x.vehicle_name}}</td>
+								<td>{{x.towed_date|date}}</td>
+								<td class="center">{{x.fine_amount}}</td>
+								<td>
+									<div class="switch switch-sm switch-warning">
+										<input type="checkbox" name="switch" data-plugin-ios-switch {% if x.is_fine_paid %} checked {% endif %} id="id_is_fine_paid{{x.id}}" record-id="{{x.id}}" onchange="changeFinePaid('id_is_fine_paid{{x.id}}')" />
+									</div>
+								</td>
+								<td>
+									<div class="switch switch-sm switch-warning">
+										<input type="checkbox" name="switch" data-plugin-ios-switch {% if x.is_vehicle_returned %} checked {% endif %} id="id_is_vehicle_returned{{x.id}}" record-id="{{x.id}}" onchange="changeVehicleReturned('id_is_vehicle_returned{{x.id}}')" />
+									</div>
+								</td>
+								<td>
+	                <span style="padding-left:32px;font-size:1.4rem;"><a href="{% url 'enf_model_vehicle' enforcement_id=enforcementId %}?edit=True&vehicleId={{x.id}}"><i class="fas fa-edit" style="color:green;"></i></a></span>
+	                <span class="remove" record-id="{{x.id}}" style="padding-left:32px;font-size:1.4rem;"><i class="fas fa-trash" style="color:red;"></i></span>
+	              </td>
+							</tr>
+						 {% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</section>
+		</div>
+	</div>
+</section>
+{% endblock %}
+{% block script_code %}
+<script>
+	$(document).ready(function () {
+		var table = $('#datatable-tabletools').DataTable();
+    // Delete a record
+    table.on('click', '.remove', function (e) {
+      $id = $(this).attr('record-id');
+      var request = new XMLHttpRequest();
+      var url = '/enforcement/delete/vehicle/{{enforcementId}}/' + $id + '/';
+      request.open('GET', url, true);
+      request.send();
+      $tr = $(this).closest('tr');
+      table.row($tr).remove().draw();
+      e.preventDefault();
+    });
+	});
+
+	function changeFinePaid(id) {
+	  console.log(id);
+	  console.log('changed');
+	  var isChecked = document.getElementById(id).checked;
+	  console.log(isChecked);
+	  var switchLabel = document.getElementById(id);
+	  var request = new XMLHttpRequest();
+	  if (isChecked) {
+	    var recordId = switchLabel.getAttribute('record-id');
+	    var url = '/enforcement/change_fine_paid/'+recordId+'/True/';
+	    request.open('GET', url, true);
+	    request.send()
+	  }
+	  else {
+	    var recordId = switchLabel.getAttribute('record-id');
+	    var url = '/enforcement/change_fine_paid/'+recordId+'/False/';
+	    request.open('GET', url, true);
+	    request.send()
+	  }
+	}
+
+	function changeVehicleReturned(id) {
+	  console.log(id);
+	  console.log('changed');
+	  var isChecked = document.getElementById(id).checked;
+	  console.log(isChecked);
+	  var switchLabel = document.getElementById(id);
+	  var request = new XMLHttpRequest();
+	  if (isChecked) {
+	    var recordId = switchLabel.getAttribute('record-id');
+	    var url = '/enforcement/change_vehicle_returned/'+recordId+'/True/';
+	    request.open('GET', url, true);
+	    request.send()
+	  }
+	  else {
+	    var recordId = switchLabel.getAttribute('record-id');
+	    var url = '/enforcement/change_vehicle_returned/'+recordId+'/False/';
+	    request.open('GET', url, true);
+	    request.send()
+	  }
+	}
+</script>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'webadmin/base.html' %}
+{% load static %}
+{% block title %}
+<title>Contact Messages</title>
+{% endblock %}
+{% block page_content %}
+<section role="main" class="content-body">
+	<header class="page-header">
+		<h2>Contact Messages</h2>
+
+		<div class="right-wrapper text-right">
+			<ol class="breadcrumbs">
+				<li>
+					<a href="{% url 'web_admin_dashboard' %}">
+						<i class="fas fa-home"></i>
+					</a>
+				</li>
+				<li><span>Messages</span></li>
+			</ol>
+			<a class="sidebar-right-toggle"><i class="fas fa-chevron-left"></i></a>
+		</div>
+	</header>
+
+	<!-- start: page -->
+	<div class="row">
+		<div class="col">
+			<section class="card">
+				<header class="card-header">
+					<div class="card-actions">
+						<a href="#" class="card-action card-action-toggle" data-card-toggle></a>
+						<a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
+					</div>
+
+					<h2 class="card-title">Contact Messages</h2>
+				</header>
+				<div class="card-body">
+					<table class="table table-bordered table-striped mb-0" id="datatable-tabletools">
+						<thead>
+							<tr>
+								<th>S. No.</th>
+								<th>Name</th>
+								<th>Email</th>
+								<th>Subject</th>
+								<th>Message</th>
+							</tr>
+						</thead>
+						<tbody>
+						 {% for x in contact_messages %}
+							<tr>
+								<td class="center">{{forloop.counter}}</td>
+								<td>{{x.name}}</td>
+								<td>{{x.email}}</td>
+								<td>{{x.subject}}</td>
+								<td>{{x.message}}</td>
+							</tr>
+						 {% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</section>
+		</div>
+	</div>
+</section>
+{% endblock %}

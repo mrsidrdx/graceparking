@@ -1,0 +1,233 @@
+{% extends 'webadmin/base.html' %}
+{% load static %}
+{% block title %}
+<title>Dashboard</title>
+{% endblock %}
+{% block page_content %}
+<section role="main" class="content-body">
+	<header class="page-header">
+		<h2>Dashboard</h2>
+
+		<div class="right-wrapper text-right">
+			<ol class="breadcrumbs">
+				<li>
+					<a href="{% url 'web_admin_dashboard' %}">
+						<i class="fas fa-home"></i>
+					</a>
+				</li>
+				<!-- <li><span>Layouts</span></li> -->
+			</ol>
+			<a class="sidebar-right-toggle"><i class="fas fa-chevron-left"></i></a>
+		</div>
+	</header>
+
+	<!-- start: page -->
+	<div class="row">
+		<div class="col-lg-6 mb-3">
+			<section class="card">
+				<div class="card-body">
+					<div class="row">
+						<div class="col-xl-8">
+							<div class="chart-data-selector" id="salesSelectorWrapper">
+								<h2>
+									Portal:
+									<strong>
+										<select class="form-control" id="salesSelector">
+											<option value="Apartment" selected>Registered Vehicles</option>
+										</select>
+									</strong>
+								</h2>
+
+								<div id="salesSelectorItems" class="chart-data-selector-items mt-3">
+									<!-- Flot: Sales Porto Admin -->
+									<div class="chart chart-sm" data-sales-rel="Apartment" id="flotDashSales1" class="chart-active" style="height: 203px;"></div>
+									<script>
+										var flotDashSales1Data = [{
+											data: [
+												["Jan", {{registered_vehicles_count_monthwise.0}}],
+												["Feb", {{registered_vehicles_count_monthwise.1}}],
+												["Mar", {{registered_vehicles_count_monthwise.2}}],
+												["Apr", {{registered_vehicles_count_monthwise.3}}],
+												["May", {{registered_vehicles_count_monthwise.4}}],
+												["Jun", {{registered_vehicles_count_monthwise.5}}],
+												["Jul", {{registered_vehicles_count_monthwise.6}}],
+												["Aug", {{registered_vehicles_count_monthwise.7}}],
+												["Sep", {{registered_vehicles_count_monthwise.8}}],
+												["Oct", {{registered_vehicles_count_monthwise.9}}],
+												["Nov", {{registered_vehicles_count_monthwise.10}}],
+												["Dec", {{registered_vehicles_count_monthwise.11}}]
+											],
+											color: "#0088cc"
+										}];
+
+										// See: js/examples/examples.dashboard.js for more settings.
+									</script>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+		<div class="col-lg-6 mb-3">
+			<section class="card">
+				<div class="card-body">
+					<div class="row">
+						<div class="col-xl-8">
+							<div class="chart-data-selector" id="salesSelectorWrapper1">
+								<h2>
+									Portal:
+									<strong>
+										<select class="form-control" id="salesSelector1">
+											<option value="Enforcement" selected>Towed Vehicles</option>
+										</select>
+									</strong>
+								</h2>
+
+								<div id="salesSelectorItems1" class="chart-data-selector-items mt-3">
+									<!-- Flot: Sales Porto Admin -->
+									<div class="chart chart-sm" data-sales-rel="Enforcement" id="flotDashSales2" class="chart-active" style="height: 203px;"></div>
+									<script>
+										var flotDashSales2Data = [{
+											data: [
+												["Jan", {{towed_vehicles_count_monthwise.0}}],
+												["Feb", {{towed_vehicles_count_monthwise.1}}],
+												["Mar", {{towed_vehicles_count_monthwise.2}}],
+												["Apr", {{towed_vehicles_count_monthwise.3}}],
+												["May", {{towed_vehicles_count_monthwise.4}}],
+												["Jun", {{towed_vehicles_count_monthwise.5}}],
+												["Jul", {{towed_vehicles_count_monthwise.6}}],
+												["Aug", {{towed_vehicles_count_monthwise.7}}],
+												["Sep", {{towed_vehicles_count_monthwise.8}}],
+												["Oct", {{towed_vehicles_count_monthwise.9}}],
+												["Nov", {{towed_vehicles_count_monthwise.10}}],
+												["Dec", {{towed_vehicles_count_monthwise.11}}]
+											],
+											color: "#38cc77"
+										}];
+
+										// See: js/examples/examples.dashboard.js for more settings.
+									</script>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+
+	<div class="row pt-4">
+		<div class="col-lg-6">
+			<section class="card">
+				<header class="card-header">
+					<div class="card-actions">
+						<a href="#" class="card-action card-action-toggle" data-card-toggle></a>
+						<a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
+					</div>
+					<h2 class="card-title">Server Usage</h2>
+				</header>
+				<div class="card-body">
+
+					<!-- Flot: Curves -->
+					<div class="chart chart-md" id="flotDashRealTime"></div>
+
+				</div>
+			</section>
+		</div>
+		<div class="col-lg-6">
+			<div class="row mb-3">
+				<div class="col-xl-6">
+					<section class="card card-featured-left card-featured-primary mb-3">
+						<div class="card-body">
+							<div class="widget-summary">
+								<div class="widget-summary-col widget-summary-col-icon">
+									<div class="summary-icon bg-primary">
+										<i class="fas fa-car"></i>
+									</div>
+								</div>
+								<div class="widget-summary-col">
+									<div class="summary">
+										<h4 class="title">Total Registered Vehicles</h4>
+										<div class="info">
+											<strong class="amount">{{reg_vehicles_count}}</strong>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+				</div>
+				<div class="col-xl-6">
+					<section class="card card-featured-left card-featured-secondary">
+						<div class="card-body">
+							<div class="widget-summary">
+								<div class="widget-summary-col widget-summary-col-icon">
+									<div class="summary-icon bg-secondary">
+										<i class="fas fa-ribbon"></i>
+									</div>
+								</div>
+								<div class="widget-summary-col">
+									<div class="summary">
+										<h4 class="title">Total Towed Vehicles</h4>
+										<div class="info">
+											<strong class="amount">{{tow_vehicles_count}}</strong>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xl-6">
+					<section class="card card-featured-left card-featured-tertiary mb-3">
+						<div class="card-body">
+							<div class="widget-summary">
+								<div class="widget-summary-col widget-summary-col-icon">
+									<div class="summary-icon bg-tertiary">
+										<i class="fas fa-building"></i>
+									</div>
+								</div>
+								<div class="widget-summary-col">
+									<div class="summary">
+										<h4 class="title">Total Apartments</h4>
+										<div class="info">
+											<strong class="amount">{{apartment_count}}</strong>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+				</div>
+				<div class="col-xl-6">
+					<section class="card card-featured-left card-featured-quaternary">
+						<div class="card-body">
+							<div class="widget-summary">
+								<div class="widget-summary-col widget-summary-col-icon">
+									<div class="summary-icon bg-quaternary">
+										<i class="fas fa-gavel"></i>
+									</div>
+								</div>
+								<div class="widget-summary-col">
+									<div class="summary">
+										<h4 class="title">Total Enforcement Companies</h4>
+										<div class="info">
+											<strong class="amount">{{enforcement_count}}</strong>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end: page -->
+</section>
+{% endblock %}

@@ -1,0 +1,269 @@
+{% load static %}
+<!doctype html>
+<html class="fixed">
+
+<head>
+
+	<!-- Basic -->
+	<meta charset="UTF-8">
+  {% block title %}
+  {% endblock %}
+	<meta name="keywords" content="HTML5 Admin Template" />
+	<meta name="description" content="Porto Admin - Responsive HTML5 Template">
+	<meta name="author" content="okler.net">
+
+	<!-- Mobile Metas -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+	<!-- Web Fonts  -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
+
+	<!-- Vendor CSS -->
+	<link rel="stylesheet" href="{% static 'webadmin/vendor/bootstrap/css/bootstrap.css' %}" />
+	<link rel="stylesheet" href="{% static 'webadmin/vendor/animate/animate.css' %}">
+
+	<link rel="stylesheet" href="{% static 'webadmin/vendor/font-awesome/css/all.min.css' %}" />
+	<link rel="stylesheet" href="{% static 'webadmin/vendor/magnific-popup/magnific-popup.css' %}" />
+	<link rel="stylesheet" href="{% static 'webadmin/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css' %}" />
+
+  <!-- Specific Page Vendor CSS -->
+  <link rel="stylesheet" href="{% static 'webadmin/vendor/jquery-ui/jquery-ui.css' %}" />
+  <link rel="stylesheet" href="{% static 'webadmin/vendor/jquery-ui/jquery-ui.theme.css' %}" />
+  <link rel="stylesheet" href="{% static 'webadmin/vendor/bootstrap-multiselect/css/bootstrap-multiselect.css' %}" />
+  <link rel="stylesheet" href="{% static 'webadmin/vendor/morris/morris.css' %}" />
+	<link rel="stylesheet" href="{% static 'webadmin/vendor/select2/css/select2.css' %}" />
+	<link rel="stylesheet" href="{% static 'webadmin/vendor/select2-bootstrap-theme/select2-bootstrap.min.css' %}" />
+	<link rel="stylesheet" href="{% static 'webadmin/vendor/bootstrap-tagsinput/bootstrap-tagsinput.css' %}" />
+	<link rel="stylesheet" href="{% static 'webadmin/vendor/bootstrap-colorpicker/css/bootstrap-colorpicker.css' %}" />
+	<link rel="stylesheet" href="{% static 'webadmin/vendor/bootstrap-timepicker/css/bootstrap-timepicker.css' %}" />
+	<link rel="stylesheet" href="{% static 'webadmin/vendor/dropzone/basic.css' %}" />
+	<link rel="stylesheet" href="{% static 'webadmin/vendor/dropzone/dropzone.css' %}" />
+	<link rel="stylesheet" href="{% static 'webadmin/vendor/bootstrap-markdown/css/bootstrap-markdown.min.css' %}" />
+	<link rel="stylesheet" href="{% static 'webadmin/vendor/summernote/summernote-bs4.css' %}" />
+	<link rel="stylesheet" href="{% static 'webadmin/vendor/codemirror/lib/codemirror.css' %}" />
+	<link rel="stylesheet" href="{% static 'webadmin/vendor/codemirror/theme/monokai.css' %}" />
+	<link rel="stylesheet" href="{% static 'webadmin/vendor/datatables/media/css/dataTables.bootstrap4.css' %}" />
+
+	<!-- Theme CSS -->
+	<link rel="stylesheet" href="{% static 'webadmin/css/theme.css' %}" />
+
+	<!-- Skin CSS -->
+	<link rel="stylesheet" href="{% static 'webadmin/css/skins/default.css' %}" />
+
+	<!-- Theme Custom CSS -->
+	<link rel="stylesheet" href="{% static 'webadmin/css/custom.css' %}">
+
+	<!-- Head Libs -->
+	<script src="{% static 'webadmin/vendor/modernizr/modernizr.js' %}"></script>
+
+</head>
+
+<body>
+	<!-- start: page -->
+  <section class="body">
+
+		<!-- start: header -->
+		<header class="header">
+			<div class="logo-container">
+				<a href="{% url 'web_admin_dashboard' %}" class="logo">
+					<img src="{% static 'webadmin/img/logo-new.png' %}" width="75" height="35" alt="Porto Admin" />
+				</a>
+				<div class="d-md-none toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html" data-fire-event="sidebar-left-opened">
+					<i class="fas fa-bars" aria-label="Toggle sidebar"></i>
+				</div>
+			</div>
+
+			<!-- start: search & user box -->
+			<div class="header-right">
+
+				<div id="userbox" class="userbox">
+					<a href="#" data-toggle="dropdown">
+						<figure class="profile-picture">
+              <img src="{% static 'webadmin/img/!happy-face.png' %}" alt="{{request.user.username}}" class="rounded-circle" data-lock-picture="{% static 'webadmin/img/!happy-face.png' %}" />
+						</figure>
+						<div class="profile-info" data-lock-name="{{request.user.username}}" data-lock-email="{{request.user.email}}">
+							<span class="name">{{request.user.username}}</span>
+							<span class="role">Website Admin</span>
+						</div>
+
+						<i class="fa custom-caret"></i>
+					</a>
+
+					<div class="dropdown-menu">
+						<ul class="list-unstyled mb-2">
+							<li class="divider"></li>
+							<li>
+								<a role="menuitem" tabindex="-1" href="{% url 'web_admin_logout' %}"><i class="fas fa-power-off"></i> Logout</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!-- end: search & user box -->
+		</header>
+		<!-- end: header -->
+
+		<div class="inner-wrapper">
+			<!-- start: sidebar -->
+			<aside id="sidebar-left" class="sidebar-left">
+
+				<div class="sidebar-header">
+					<div class="sidebar-title">
+						Navigation
+					</div>
+					<div class="sidebar-toggle d-none d-md-block" data-toggle-class="sidebar-left-collapsed" data-target="html" data-fire-event="sidebar-left-toggle">
+						<i class="fas fa-bars" aria-label="Toggle sidebar"></i>
+					</div>
+				</div>
+
+				<div class="nano">
+					<div class="nano-content">
+						<nav id="menu" class="nav-main" role="navigation">
+
+							<ul class="nav nav-main">
+								<li>
+									<a class="nav-link" href="{% url 'web_admin_dashboard' %}">
+										<i class="fas fa-home" aria-hidden="true"></i>
+										<span>Dashboard</span>
+									</a>
+								</li>
+								<li>
+									<a class="nav-link" href="{% url 'web_show_all_apartment_owners' %}">
+										<i class="fas fa-building" aria-hidden="true"></i>
+										<span>Apartments</span>
+									</a>
+								</li>
+								<li>
+									<a class="nav-link" href="{% url 'web_show_all_enforcement_company' %}">
+										<i class="fas fa-gavel" aria-hidden="true"></i>
+										<span>Enforcement Companies</span>
+									</a>
+								</li>
+                <li>
+									<a class="nav-link" href="{% url 'web_show_all_registered_vehicles' %}">
+										<i class="fas fa-car" aria-hidden="true"></i>
+										<span>Registered Vehicles</span>
+									</a>
+								</li>
+								<li>
+									<a class="nav-link" href="{% url 'web_show_all_towed_vehicles' %}">
+										<i class="fas fa-car" aria-hidden="true"></i>
+										<span>Towed Vehicles</span>
+									</a>
+								</li>
+								<li>
+									<a class="nav-link" href="{% url 'show_messages' %}">
+										<i class="fas fa-envelope" aria-hidden="true"></i>
+										<span>Messages</span>
+									</a>
+								</li>
+                <li>
+									<a class="nav-link" href="{% url 'web_admin_logout' %}">
+										<i class="fas fa-power-off" aria-hidden="true"></i>
+										<span>Logout</span>
+									</a>
+								</li>
+							</ul>
+						</nav>
+					</div>
+
+					<script>
+						// Maintain Scroll Position
+						if (typeof localStorage !== 'undefined') {
+							if (localStorage.getItem('sidebar-left-position') !== null) {
+								var initialPosition = localStorage.getItem('sidebar-left-position'),
+									sidebarLeft = document.querySelector('#sidebar-left .nano-content');
+
+								sidebarLeft.scrollTop = initialPosition;
+							}
+						}
+					</script>
+
+
+				</div>
+
+			</aside>
+			<!-- end: sidebar -->
+      {% block page_content %}
+      {% endblock %}
+		</div>
+	</section>
+	<!-- end: page -->
+
+	<!-- Vendor -->
+	<script src="{% static 'webadmin/vendor/jquery/jquery.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/jquery-browser-mobile/jquery.browser.mobile.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/popper/umd/popper.min.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/bootstrap/js/bootstrap.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/common/common.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/nanoscroller/nanoscroller.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/magnific-popup/jquery.magnific-popup.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/jquery-placeholder/jquery.placeholder.js' %}"></script>
+
+  <!-- Specific Page Vendor -->
+	<script src="{% static 'webadmin/vendor/jquery-ui/jquery-ui.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/jqueryui-touch-punch/jquery.ui.touch-punch.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/jquery-appear/jquery.appear.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/bootstrap-multiselect/js/bootstrap-multiselect.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/jquery.easy-pie-chart/jquery.easypiechart.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/flot/jquery.flot.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/flot.tooltip/jquery.flot.tooltip.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/flot/jquery.flot.pie.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/flot/jquery.flot.categories.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/flot/jquery.flot.resize.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/jquery-sparkline/jquery.sparkline.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/raphael/raphael.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/morris/morris.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/gauge/gauge.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/snap.svg/snap.svg.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/liquid-meter/liquid.meter.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/select2/js/select2.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/jquery-maskedinput/jquery.maskedinput.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/bootstrap-tagsinput/bootstrap-tagsinput.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/bootstrap-colorpicker/js/bootstrap-colorpicker.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/bootstrap-timepicker/js/bootstrap-timepicker.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/fuelux/js/spinner.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/dropzone/dropzone.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/bootstrap-markdown/js/markdown.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/bootstrap-markdown/js/to-markdown.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/bootstrap-markdown/js/bootstrap-markdown.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/codemirror/lib/codemirror.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/codemirror/addon/selection/active-line.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/codemirror/addon/edit/matchbrackets.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/codemirror/mode/javascript/javascript.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/codemirror/mode/xml/xml.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/codemirror/mode/htmlmixed/htmlmixed.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/codemirror/mode/css/css.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/summernote/summernote-bs4.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/bootstrap-maxlength/bootstrap-maxlength.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/ios7-switch/ios7-switch.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/datatables/media/js/jquery.dataTables.min.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/datatables/media/js/dataTables.bootstrap4.min.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/datatables/extras/TableTools/Buttons-1.4.2/js/dataTables.buttons.min.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/datatables/extras/TableTools/Buttons-1.4.2/js/buttons.bootstrap4.min.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/datatables/extras/TableTools/Buttons-1.4.2/js/buttons.html5.min.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/datatables/extras/TableTools/Buttons-1.4.2/js/buttons.print.min.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/datatables/extras/TableTools/JSZip-2.5.0/jszip.min.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/datatables/extras/TableTools/pdfmake-0.1.32/pdfmake.min.js' %}"></script>
+	<script src="{% static 'webadmin/vendor/datatables/extras/TableTools/pdfmake-0.1.32/vfs_fonts.js' %}"></script>
+
+	<!-- Theme Base, Components and Settings -->
+	<script src="{% static 'webadmin/js/theme.js' %}"></script>
+
+	<!-- Theme Custom -->
+	<script src="{% static 'webadmin/js/custom.js' %}"></script>
+
+	<!-- Theme Initialization Files -->
+	<script src="{% static 'webadmin/js/theme.init.js' %}"></script>
+
+  <!-- Examples -->
+	<script src="{% static 'webadmin/js/examples/examples.dashboard.js' %}"></script>
+	<script src="{% static 'webadmin/js/examples/examples.datatables.default.js' %}"></script>
+	<script src="{% static 'webadmin/js/examples/examples.datatables.tabletools.js' %}"></script>
+	{% block script_code %}
+	{% endblock %}
+
+</body>
+
+</html>

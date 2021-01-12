@@ -1,0 +1,128 @@
+{% extends 'apartment/base.html' %}
+{% load static %}
+{% block title %}
+<title>Registered Vehicles</title>
+{% endblock %}
+{% block page_content %}
+<section role="main" class="content-body">
+	<header class="page-header">
+		<h2>Registered Vehicles</h2>
+
+		<div class="right-wrapper text-right">
+			<ol class="breadcrumbs">
+				<li>
+					<a href="{% url 'apartment_dashboard' %}">
+						<i class="fas fa-home"></i>
+					</a>
+				</li>
+				<li><span>Vehicles</span></li>
+			</ol>
+			<a class="sidebar-right-toggle"><i class="fas fa-chevron-left"></i></a>
+		</div>
+	</header>
+
+	<!-- start: page -->
+	<div class="row">
+		<div class="col">
+			<a role="button" href="{% url 'show_all_registered_vehicles' apartment_id=apartmentId %}" class="mb-1 mt-1 mr-1 btn btn-lg btn-primary">Back</a>
+			<section class="card">
+				<header class="card-header">
+					<div class="card-actions">
+						<a href="#" class="card-action card-action-toggle" data-card-toggle></a>
+						<a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
+					</div>
+
+					<h2 class="card-title">Register Vehicle</h2>
+				</header>
+				<form class="" method="post" enctype="multipart/form-data">
+	        {% csrf_token %}
+	        <div class="card-body" style="display: block;">
+	          <div class="row form-group">
+	            <div class="col-lg-4">
+	              <div class="form-group">
+	                <label class="col-form-label" for="formGroupExampleInput">Owner Name</label>
+	                <input type="text" class="form-control" id="id_owner_name" name="owner_name" value="{{vehicle_object.owner_name}}" required>
+	              </div>
+	            </div>
+							<div class="col-lg-4">
+	              <div class="form-group">
+	                <label class="col-form-label" for="formGroupExampleInput">Owner Email</label>
+	                <input type="email" class="form-control" id="id_owner_email" name="owner_email" value="{{vehicle_object.owner_email}}" required>
+	              </div>
+	            </div>
+							<div class="col-lg-4">
+	              <div class="form-group">
+	                <label class="col-form-label" for="formGroupExampleInput">Owner Phone Number</label>
+	                <input type="text" class="form-control" data-plugin-maxlength="" maxlength="10" id="id_owner_phone_no" name="owner_phone_no" value="{{vehicle_object.owner_phone_no}}" required>
+	              </div>
+	            </div>
+	          </div>
+						<div class="row form-group">
+	            <div class="col-lg-4">
+	              <div class="form-group">
+	                <label class="col-form-label" for="formGroupExampleInput">Vehicle Name</label>
+	                <input type="text" class="form-control" id="id_vehicle_name" name="vehicle_name" value="{{vehicle_object.vehicle_name}}" required>
+	              </div>
+	            </div>
+							<div class="col-lg-4">
+	              <div class="form-group">
+	                <label class="col-form-label" for="formGroupExampleInput">Vehicle Type</label>
+	                <input type="text" class="form-control" id="id_vehicle_type" name="vehicle_type" value="{{vehicle_object.vehicle_type}}" required>
+	              </div>
+	            </div>
+							<div class="col-lg-4">
+	              <div class="form-group">
+	                <label class="col-form-label" for="formGroupExampleInput">Vehicle Color</label>
+	                <input type="text" class="form-control" id="id_vehicle_color" name="vehicle_color" value="{{vehicle_object.vehicle_color}}" required>
+	              </div>
+	            </div>
+	          </div>
+						<div class="row form-group">
+	            <div class="col-lg-4">
+	              <div class="form-group">
+	                <label class="col-form-label" for="formGroupExampleInput">Make</label>
+	                <input type="text" class="form-control" id="id_make" name="make" value="{{vehicle_object.make}}" required>
+	              </div>
+	            </div>
+							<div class="col-lg-4">
+	              <div class="form-group">
+	                <label class="col-form-label" for="formGroupExampleInput">Model</label>
+	                <input type="text" class="form-control" id="id_model" name="model" value="{{vehicle_object.model}}" required>
+	              </div>
+	            </div>
+							<div class="col-lg-4">
+	              <div class="form-group">
+	                <label class="col-form-label" for="formGroupExampleInput">Year</label>
+	                <input type="text" class="form-control" id="id_year" name="year" value="{{vehicle_object.year}}" required>
+	              </div>
+	            </div>
+	          </div>
+						<div class="row form-group">
+	            <div class="col-lg-6">
+	              <div class="form-group">
+	                <label class="col-form-label" for="formGroupExampleInput">VIN</label>
+	                <input type="text" class="form-control" id="id_vin" name="vin" value="{{vehicle_object.vin}}" required>
+	              </div>
+	            </div>
+							<div class="col-lg-6">
+	              <div class="form-group">
+	                <label class="col-form-label" for="formGroupExampleInput">License Plate Number</label>
+	                <input type="text" class="form-control" id="id_license_tag_no" name="license_tag_no" value="{{vehicle_object.license_tag_no}}" required>
+	              </div>
+	            </div>
+	          </div>
+
+	        </div>
+	        <footer class="card-footer text-right" style="display: block;">
+						{% if not vehicle_object.id  %}
+					    <button formaction="/apartment/save/vehicle/{{apartmentId}}/" class="mb-1 mt-1 mr-1 btn btn-lg btn-primary" type="submit">Save</button>
+					  {% else %}
+					    <button formaction="/apartment/update/vehicle/{{apartmentId}}/{{vehicle_object.id}}/" class="mb-1 mt-1 mr-1 btn btn-lg btn-primary" type="submit">Update</button>
+					  {% endif %}
+	        </footer>
+	      </form>
+			</section>
+		</div>
+	</div>
+</section>
+{% endblock %}

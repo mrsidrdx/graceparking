@@ -29,11 +29,6 @@ def web_admin_login(request):
     if request.POST:
         username = request.POST['username']
         password = request.POST['password']
-        try:
-            checkUser = User.objects.get(username=username, password=password, is_superuser=True)
-        except Exception as e:
-            messages.error(request, 'Invalid Login Credentials!')
-            return render(request, 'accounts/signin.html', context = {'portal':'web_admin'})
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)

@@ -1,0 +1,218 @@
+{% extends 'apartment/base.html' %}
+{% load static %}
+{% block title %}
+<title>Dashboard</title>
+{% endblock %}
+{% block page_content %}
+<section role="main" class="content-body">
+	<header class="page-header">
+		<h2>Dashboard</h2>
+
+		<div class="right-wrapper text-right">
+			<ol class="breadcrumbs">
+				<li>
+					<a href="{% url 'apartment_dashboard' %}">
+						<i class="fas fa-home"></i>
+					</a>
+				</li>
+				<!-- <li><span>Layouts</span></li> -->
+			</ol>
+			<a class="sidebar-right-toggle"><i class="fas fa-chevron-left"></i></a>
+		</div>
+	</header>
+
+	<!-- start: page -->
+	<div class="row">
+		<div class="col-lg-6 mb-3">
+			<section class="card">
+				<div class="card-body">
+					<div class="row">
+						<div class="col-xl-8">
+							<div class="chart-data-selector" id="salesSelectorWrapper">
+								<h2>
+									Portal:
+									<strong>
+										<select class="form-control" id="salesSelector">
+											<option value="Apartment" selected>Registered Vehicles</option>
+										</select>
+									</strong>
+								</h2>
+
+								<div id="salesSelectorItems" class="chart-data-selector-items mt-3">
+									<!-- Flot: Sales Porto Admin -->
+									<div class="chart chart-sm" data-sales-rel="Apartment" id="flotDashSales1" class="chart-active" style="height: 203px;"></div>
+									<script>
+										var flotDashSales1Data = [{
+											data: [
+												["Jan", {{registered_vehicles_count_monthwise.0}}],
+												["Feb", {{registered_vehicles_count_monthwise.1}}],
+												["Mar", {{registered_vehicles_count_monthwise.2}}],
+												["Apr", {{registered_vehicles_count_monthwise.3}}],
+												["May", {{registered_vehicles_count_monthwise.4}}],
+												["Jun", {{registered_vehicles_count_monthwise.5}}],
+												["Jul", {{registered_vehicles_count_monthwise.6}}],
+												["Aug", {{registered_vehicles_count_monthwise.7}}],
+												["Sep", {{registered_vehicles_count_monthwise.8}}],
+												["Oct", {{registered_vehicles_count_monthwise.9}}],
+												["Nov", {{registered_vehicles_count_monthwise.10}}],
+												["Dec", {{registered_vehicles_count_monthwise.11}}]
+											],
+											color: "#0088cc"
+										}];
+
+										// See: js/examples/examples.dashboard.js for more settings.
+									</script>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+		<div class="col-lg-6">
+			<div class="row mb-3">
+				<div class="col-xl-6">
+					<section class="card card-featured-left card-featured-primary mb-3">
+						<div class="card-body">
+							<div class="widget-summary">
+								<div class="widget-summary-col widget-summary-col-icon">
+									<div class="summary-icon bg-primary">
+										<i class="fas fa-car"></i>
+									</div>
+								</div>
+								<div class="widget-summary-col">
+									<div class="summary">
+										<h4 class="title">Total Registered Vehicles</h4>
+										<div class="info">
+											<strong class="amount">{{total_vehicles_count}}</strong>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+				</div>
+				<div class="col-xl-6">
+					<section class="card card-featured-left card-featured-secondary">
+						<div class="card-body">
+							<div class="widget-summary">
+								<div class="widget-summary-col widget-summary-col-icon">
+									<div class="summary-icon bg-secondary">
+										<i class="fas fa-ribbon"></i>
+									</div>
+								</div>
+								<div class="widget-summary-col">
+									<div class="summary">
+										<h4 class="title">Total Generated Stickers</h4>
+										<div class="info">
+											<strong class="amount">{{total_stickers_count}}</strong>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xl-6">
+					<section class="card card-featured-left card-featured-tertiary mb-3">
+						<div class="card-body">
+							<div class="widget-summary">
+								<div class="widget-summary-col widget-summary-col-icon">
+									<div class="summary-icon bg-tertiary">
+										<i class="fas fa-car"></i>
+									</div>
+								</div>
+								<div class="widget-summary-col">
+									<div class="summary">
+										<h4 class="title">Registered Vehicles</h4>
+										<div class="info">
+											<strong class="amount">{{vehicles_count_year}}</strong>
+										</div>
+									</div>
+									<div class="summary-footer">
+										<a class="text-muted text-uppercase" href="#">(Current Year)</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+				</div>
+				<div class="col-xl-6">
+					<section class="card card-featured-left card-featured-quaternary">
+						<div class="card-body">
+							<div class="widget-summary">
+								<div class="widget-summary-col widget-summary-col-icon">
+									<div class="summary-icon bg-quaternary">
+										<i class="fas fa-ribbon"></i>
+									</div>
+								</div>
+								<div class="widget-summary-col">
+									<div class="summary">
+										<h4 class="title">Stickers</h4>
+										<div class="info">
+											<strong class="amount">{{stickers_count_year}}</strong>
+										</div>
+									</div>
+									<div class="summary-footer">
+										<a class="text-muted text-uppercase" href="#">(Current Year)</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row pt-4">
+		<div class="col-lg-6">
+			<section class="card">
+				<header class="card-header">
+					<div class="card-actions">
+						<a href="#" class="card-action card-action-toggle" data-card-toggle></a>
+						<a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
+					</div>
+					<h2 class="card-title">Server Usage</h2>
+				</header>
+				<div class="card-body">
+
+					<!-- Flot: Curves -->
+					<div class="chart chart-md" id="flotDashRealTime"></div>
+
+				</div>
+			</section>
+		</div>
+		<div class="col-lg-6 col-xl-3">
+			<section class="card card-transparent">
+				<header class="card-header">
+					<div class="card-actions">
+						<a href="#" class="card-action card-action-toggle" data-card-toggle></a>
+						<a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
+					</div>
+
+					<h2 class="card-title">Account Stats</h2>
+				</header>
+				<div class="card-body">
+					<section class="card">
+						<div class="card-body">
+							<div class="h4 font-weight-bold mb-0">{{vehicles_count_month}}</div>
+							<p class="text-3 text-muted mb-0">Vehicles Registered (This Month)</p>
+						</div>
+					</section>
+					<section class="card">
+						<div class="card-body">
+							<div class="h4 font-weight-bold mb-0">{{stickers_count_month}}</div>
+							<p class="text-3 text-muted mb-0">Stickers Generated (This Month)</p>
+						</div>
+					</section>
+				</div>
+			</section>
+		</div>
+	</div>
+	<!-- end: page -->
+</section>
+{% endblock %}
