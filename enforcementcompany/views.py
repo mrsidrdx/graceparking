@@ -8,6 +8,7 @@ from datetime import datetime
 from django.core.files.storage import FileSystemStorage
 from .models import *
 from accounts.models import ApartmentOwners, LawEnforcementUsers
+from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 

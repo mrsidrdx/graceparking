@@ -12,6 +12,7 @@ import qrcode
 from PIL import Image
 from django.conf import settings
 import os
+from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 
