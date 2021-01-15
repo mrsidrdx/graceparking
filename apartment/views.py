@@ -14,9 +14,18 @@ from django.conf import settings
 import os
 
 # Create your views here.
+
+def get_apartment(request):
+    try:
+        apartment = ApartmentOwners.objects.get(user_id=request.user.id)
+        return apartment
+    except Exception as e:
+        logout(request)
+        return redirect('apartment_owners_login')
+
 @login_required(login_url='apartment_owners_login')
 def apartment_dashboard(request):
-    apartment = ApartmentOwners.objects.get(user_id=request.user.id)
+    apartment = get_apartment(request)
     total_vehicles_count = RegisteredVehicles.objects.filter(apartment_id=apartment.id).count()
     total_stickers_count = GenerateSticker.objects.filter(apartment_id=apartment.id).count()
     today = datetime.now()
@@ -42,7 +51,7 @@ def apartment_dashboard(request):
 
 @login_required(login_url='apartment_owners_login')
 def update_profile(request, apartment_id):
-    apartment = ApartmentOwners.objects.get(user_id=request.user.id)
+    apartment = get_apartment(request)
     if request.POST:
         profile_object = ApartmentOwners.objects.get(id=apartment_id)
         user = User.objects.get(id=profile_object.user_id)
@@ -75,7 +84,7 @@ def update_profile(request, apartment_id):
 
 @login_required(login_url='apartment_owners_login')
 def show_all_registered_vehicles(request, apartment_id):
-    apartment = ApartmentOwners.objects.get(user_id=request.user.id)
+    apartment = get_apartment(request)
     vehicle_objects = RegisteredVehicles.objects.filter(apartment_id=apartment_id).values()
     context = {
         "apartment": apartment,
@@ -86,7 +95,7 @@ def show_all_registered_vehicles(request, apartment_id):
 
 @login_required(login_url='apartment_owners_login')
 def model_vehicle(request, apartment_id):
-    apartment = ApartmentOwners.objects.get(user_id=request.user.id)
+    apartment = get_apartment(request)
     if 'edit' in request.GET:
         vehicle_object = RegisteredVehicles.objects.get(id=request.GET['vehicleId'])
     else:
@@ -100,7 +109,6 @@ def model_vehicle(request, apartment_id):
 
 @login_required(login_url='apartment_owners_login')
 def save_vehicle(request, apartment_id):
-
     vehicle_object = RegisteredVehicles(apartment_id=apartment_id)
     if request.POST:
         for key in request.POST:
@@ -129,7 +137,7 @@ def delete_vehicle(request, apartment_id, vehicle_id):
 
 @login_required(login_url='apartment_owners_login')
 def show_all_generated_stickers(request, apartment_id):
-    apartment = ApartmentOwners.objects.get(user_id=request.user.id)
+    apartment = get_apartment(request)
     sticker_objects = GenerateSticker.objects.filter(apartment_id=apartment_id)
     context = {
         "apartmentId": apartment_id,
@@ -140,7 +148,7 @@ def show_all_generated_stickers(request, apartment_id):
 
 @login_required(login_url='apartment_owners_login')
 def model_sticker(request, apartment_id):
-    apartment = ApartmentOwners.objects.get(user_id=request.user.id)
+    apartment = get_apartment(request)
     if 'edit' in request.GET:
         sticker_object = GenerateSticker.objects.get(id=request.GET['stickerId'])
     else:
@@ -161,7 +169,7 @@ def generate_sticker(data_dict, color, sticker_object):
             border = 1,
             error_correction=qrcode.constants.ERROR_CORRECT_L,
     )
-    apartment = ApartmentOwners.objects.get(id=data_dict.apartment_id)
+    apartment = get_apartment(request)
     data = {
         'Apartment Name' : apartment.name,
         'Owner Name' : data_dict.owner_name,
