@@ -182,6 +182,7 @@ def generate_sticker(data_dict, color, sticker_object):
             border = 1,
             error_correction=qrcode.constants.ERROR_CORRECT_L,
     )
+    apartment = ApartmentOwners.objects.get(id=data_dict.apartment_id)
     data = {
         'Apartment Name' : apartment.name,
         'Owner Name' : data_dict.owner_name,
