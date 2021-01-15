@@ -9,6 +9,7 @@ from django.core.files.storage import FileSystemStorage
 from .models import *
 from accounts.models import ApartmentOwners, LawEnforcementUsers
 from django.contrib.auth import authenticate, login, logout
+from django.urls import reverse
 
 # Create your views here.
 
@@ -17,11 +18,12 @@ def get_enforcement(request):
         enforcement = LawEnforcementUsers.objects.get(user_id=request.user.id)
         return enforcement
     except Exception as e:
-        logout(request)
-        return redirect('law_enforcement_users_login')
+        return 0
 
 @login_required(login_url='law_enforcement_users_login')
 def law_enforcement_dashboard(request):
+    if get_enforcement(request) == 0:
+        return redirect('law_enforcement_users_logout')
     enforcement = get_enforcement(request)
     total_vehicles_count = TowedVehicles.objects.filter(enforcement_id=enforcement.id).count()
     today = datetime.now()
@@ -42,6 +44,8 @@ def law_enforcement_dashboard(request):
 
 @login_required(login_url='law_enforcement_users_login')
 def update_profile(request, enforcement_id):
+    if get_enforcement(request) == 0:
+        return redirect('law_enforcement_users_logout')
     enforcement = get_enforcement(request)
     if request.POST:
         profile_object = LawEnforcementUsers.objects.get(id=enforcement_id)
@@ -75,6 +79,8 @@ def update_profile(request, enforcement_id):
 
 @login_required(login_url='law_enforcement_users_login')
 def show_all_towed_vehicles(request, enforcement_id):
+    if get_enforcement(request) == 0:
+        return redirect('law_enforcement_users_logout')
     enforcement = get_enforcement(request)
     vehicle_objects = TowedVehicles.objects.filter(enforcement_id=enforcement_id).values()
     context = {
@@ -86,6 +92,8 @@ def show_all_towed_vehicles(request, enforcement_id):
 
 @login_required(login_url='law_enforcement_users_login')
 def model_vehicle(request, enforcement_id):
+    if get_enforcement(request) == 0:
+        return redirect('law_enforcement_users_logout')
     enforcement = get_enforcement(request)
     if 'edit' in request.GET:
         vehicle_object = TowedVehicles.objects.get(id=request.GET['vehicleId'])

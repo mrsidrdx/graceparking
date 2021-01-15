@@ -15,20 +15,16 @@ from django.contrib.auth import authenticate, login, logout
 # Create your views here.
 
 def get_webadmin(request):
-    try:
-        webadmin = User.objects.get(id=request.user.id)
-        if webadmin.is_superuser == True:
-            return webadmin
-        else:
-            logout(request)
-            return redirect('web_admin_login')
-    except Exception as e:
-        logout(request)
-        return redirect('web_admin_login')
+    webadmin = User.objects.get(id=request.user.id)
+    if webadmin.is_superuser == True:
+        return 1
+    else:
+        return 0
 
 @login_required(login_url='web_admin_login')
 def web_admin_dashboard(request):
-    webadmin = get_webadmin(request)
+    if get_webadmin(request) == 0:
+        return redirect('web_admin_logout')
     apartment_count = ApartmentOwners.objects.all().count()
     enforcement_count = LawEnforcementUsers.objects.all().count()
     reg_vehicles_count = RegisteredVehicles.objects.all().count()
@@ -51,7 +47,8 @@ def web_admin_dashboard(request):
 
 @login_required(login_url='web_admin_login')
 def show_all_apartment_owners(request):
-    webadmin = get_webadmin(request)
+    if get_webadmin(request) == 0:
+        return redirect('web_admin_logout')
     apartment_objects = ApartmentOwners.objects.all().values()
     context = {
         "apartment_objects": apartment_objects,
@@ -60,7 +57,8 @@ def show_all_apartment_owners(request):
 
 @login_required(login_url='web_admin_login')
 def show_all_enforcement_company(request):
-    webadmin = get_webadmin(request)
+    if get_webadmin(request) == 0:
+        return redirect('web_admin_logout')
     enforcement_objects = LawEnforcementUsers.objects.all().values()
     context = {
         "enforcement_objects": enforcement_objects,
@@ -69,7 +67,8 @@ def show_all_enforcement_company(request):
 
 @login_required(login_url='web_admin_login')
 def show_all_registered_vehicles(request):
-    webadmin = get_webadmin(request)
+    if get_webadmin(request) == 0:
+        return redirect('web_admin_logout')
     vehicle_objects = RegisteredVehicles.objects.all().values()
     context = {
         "vehicle_objects": vehicle_objects,
@@ -78,7 +77,8 @@ def show_all_registered_vehicles(request):
 
 @login_required(login_url='web_admin_login')
 def show_all_towed_vehicles(request):
-    webadmin = get_webadmin(request)
+    if get_webadmin(request) == 0:
+        return redirect('web_admin_logout')
     vehicle_objects = TowedVehicles.objects.all().values()
     context = {
         "vehicle_objects": vehicle_objects,
@@ -103,7 +103,8 @@ def delete_enforcement(request, enforcement_id):
 
 @login_required(login_url='web_admin_login')
 def show_messages(request):
-    webadmin = get_webadmin(request)
+    if get_webadmin(request) == 0:
+        return redirect('web_admin_logout')
     messages = ReceivedMessages.objects.all()
     context = {
         "contact_messages": messages,
