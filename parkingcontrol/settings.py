@@ -29,7 +29,7 @@ SECRET_KEY = 'h4t)g3er2eki15&!5)z8%3+j-for0sn^2j06zlv(q335urgr^o'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['198.12.229.73', 'graceparking.com', 'www.graceparking.com']
 
 
 # Application definition
@@ -86,21 +86,21 @@ WSGI_APPLICATION = 'parkingcontrol.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'parkingcontroldb',
-#         'USER': 'parkingadmin',
-#         'PASSWORD': '@dI4I!Rk*c^8Po5Qtegg',
-#         'HOST': 'localhost',
-#         'PORT': '',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'parkingcontroldb',
+        'USER': 'parkingadmin',
+        'PASSWORD': '@dI4I!Rk*c^8Po5Qtegg',
+        'HOST': 'localhost',
+        'PORT': '',
+    }
+}
 
 # heroku
-DATABASES = {
-    'default': dj_database_url.config()
-}
+# DATABASES = {
+#     'default': dj_database_url.config()
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -146,4 +146,4 @@ MEDIA_ROOT  = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 # heroku
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
